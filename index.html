@@ -1,34 +1,164 @@
-<style>
-    body {
-        text-align: center;
-        font-family: 'Poppins', sans-serif;
-        color: black;
-        margin: 0;
-        overflow-x: hidden;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nanuuuuu!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            color: black;
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            background-image: url("background.jpg");
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.5; /* Reduced opacity for background */
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 50px;
+            margin-top: 50px;
+            animation: bounce 1.5s infinite;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+        }
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: pink;
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .gift-button {
+            margin: 20px auto;
+            padding: 15px 25px;
+            font-size: 20px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .gift-button:hover {
+            background: #e91e63;
+            transform: scale(1.1);
+        }
+        .gift-container {
+            display: none;
+            margin: 20px auto;
+            animation: fadeIn 1s ease-in-out;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .gift-image {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s;
+            display: block;
+            margin: 0 auto;
+        }
+        .gift-image:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .bottom-section {
+            margin-top: auto;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+        #bgMusic {
+            display: none;
+        }
+        #button-container {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Happy Birthday Nanuu! 🎂</h1>
+    <p>Wishing you a day filled with love, joy, and happiness!</p>
+    <div class="container"></div>
     
-    body::before {
-        content: "";
-        background-image: url("background.jpg");
-        background-size: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0.5; /* Adjust this value (0.1 to 0.9) for desired opacity */
-        z-index: -1;
-    }
+    <div class="bottom-section">
+        <div id="button-container">
+            <button class="gift-button" onclick="revealGift()">🎁 Reveal Gift</button>
+        </div>
+        <div class="gift-container" id="gift">
+            <img src="brother_wishing_sister.jpg.jpg" alt="Brother wishing sister" class="gift-image">
+        </div>
+    </div>
     
-    /* Rest of your CSS remains the same */
-    h1 {
-        font-size: 50px;
-        margin-top: 50px;
-        animation: bounce 1.5s infinite;
-    }
-    /* ... other styles ... */
-</style>
+    <audio id="bgMusic" autoplay loop>
+        <source src="birthday_song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            document.querySelector('.container').appendChild(balloon);
+            
+            const leftPosition = Math.random() * 100;
+            const duration = Math.random() * 3 + 2;
+            balloon.style.left = `${leftPosition}%`;
+            balloon.style.animationDuration = `${duration}s`;
+            
+            setTimeout(() => { balloon.remove(); }, duration * 1000);
+        }
+        setInterval(createBalloon, 500);
+        
+        function revealGift() {
+            document.getElementById('gift').style.display = 'block';
+            document.getElementById('button-container').style.display = 'none';
+            
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
+        }
+        
+        window.onload = function() {
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
+        };
+    </script>
+</body>
+</html>
