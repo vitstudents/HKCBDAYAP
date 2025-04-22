@@ -8,13 +8,26 @@
         body {
             text-align: center;
             font-family: 'Poppins', sans-serif;
-             background-image: url("background.jpg");
-            color: white;
             margin: 0;
             overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+        /* Pseudo-element to overlay with reduced opacity */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("background.jpg");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5; /* Adjust opacity here */
+            z-index: -1; /* Keeps it behind the content */
         }
         h1 {
             font-size: 50px;
@@ -114,37 +127,3 @@
     </div>
     
     <audio id="bgMusic" autoplay loop>
-        <source src="birthday_song.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <script>
-        function createBalloon() {
-            const balloon = document.createElement('div');
-            balloon.classList.add('balloon');
-            document.querySelector('.container').appendChild(balloon);
-            
-            const leftPosition = Math.random() * 100;
-            const duration = Math.random() * 3 + 2;
-            balloon.style.left = `${leftPosition}%`;
-            balloon.style.animationDuration = `${duration}s`;
-            
-            setTimeout(() => { balloon.remove(); }, duration * 1000);
-        }
-        setInterval(createBalloon, 500);
-        
-        function revealGift() {
-            document.getElementById('gift').style.display = 'block';
-            document.getElementById('button-container').style.display = 'none';
-            
-            const bgMusic = document.getElementById('bgMusic');
-            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
-        }
-        
-        window.onload = function() {
-            const bgMusic = document.getElementById('bgMusic');
-            bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
-        };
-    </script>
-</body>
-</html>
